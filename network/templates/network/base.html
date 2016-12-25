@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Fonis Social Network {% endblock %}</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif
+        }
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+
+    {% block scripts %}
+    {% endblock %}
+</head>
+<body class="w3-light-grey">
+<div id="meni" style="height:100px;">
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand"><img class="logo" src=""/></a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse"
+                        data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul class="nav navbar-nav" style="padding:1.5% 2% 0 0;">
+                    <li>
+                        <a href="" id="home">Home</a>
+                    </li>
+                    <li>
+                        <a href="" id="user-profile">Profile</a>
+                    </li>
+                    <li>
+                        <a href="explore">Explore</a>
+                    </li>
+
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="">
+                        <img src=""/>
+                    </a></li>
+                    <style type="text/css">
+                        div.image {
+                            max-width: 24px;
+                            max-height: 24px;
+                        }
+                    </style>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block content %}
+{% endblock %}
+
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+    <p style="margin-top: 10px">Find me on social media.</p>
+    <i class="fa fa-facebook-official w3-hover-text-indigo w3-large"></i>
+    <i class="fa fa-instagram w3-hover-text-purple w3-large"></i>
+    <i class="fa fa-snapchat w3-hover-text-yellow w3-large"></i>
+    <i class="fa fa-pinterest-p w3-hover-text-red w3-large"></i>
+    <i class="fa fa-twitter w3-hover-text-light-blue w3-large"></i>
+    <i class="fa fa-linkedin w3-hover-text-indigo w3-large"></i>
+    <p style="margin-top:7px">Powered by Tami&Baske</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fonis Social Network</title>
+</head>
+<body>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p>{{ form.username }}</p>
+    <p>{{ form.password }}</p>
+    {% if form.errors %}
+        <h4>{{ form.errors }}</h4>
+    {% endif %}
+    <input type="submit" value="Login">
+</form>
+
+</body>
+</html>

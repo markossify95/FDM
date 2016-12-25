@@ -9,6 +9,7 @@ class UserProfile(models.Model):
     active = models.BooleanField(default=True)
     year_of_study = models.IntegerField(default=0)
     about = models.TextField(max_length=10000)
+    phone = models.CharField(max_length=15, default="N/A")
     xp = models.IntegerField(default=0)
     pic_url = models.URLField(blank=True, null=True)
     git_url = models.URLField(blank=True, null=True)

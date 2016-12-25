@@ -1,0 +1,164 @@
+{% extends 'network/base.html' %}
+{% block title %}{{ user.username }} - search {% endblock %}
+
+{% block content %}
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px; margin-left:50px; margin-right:50px">
+        <div id="meni" style="height:100px;">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand"><img class="logo" src=""/></a>
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div class="navbar-collapse collapse" id="navbar-main">
+                        <ul class="nav navbar-nav" style="padding:1.5% 2% 0 0;">
+                            <li>
+                                <a href="" id="home">Home</a>
+                            </li>
+                            <li>
+                                <a href="" id="user-profile">Profile</a>
+                            </li>
+                            <li>
+                                <a href="explore">Explore</a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="">
+                                <img src=""/>
+                            </a></li>
+                            <style type="text/css">
+                                div.image {
+                                    max-width: 24px;
+                                    max-height: 24px;
+                                }
+                            </style>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+
+            <!-- Left Column -->
+            <div class="w3-third" style="margin-bottom:30px">
+
+                <div class="w3-white w3-text-grey w3-card-4">
+                    <div class="w3-display-container">
+                        <div class="w3-container" style="margin-top: 30px">
+                            <div id="pretraga">
+
+
+                                <!-- FORMA -->
+
+                                <form class="navbar-form navbar-left" role="search" method="post"
+                                      style="width:100%; margin-top:30px">
+                                    {% csrf_token %}
+                                    <div class="form-group" style="width:100%">
+                                        <input type="text" class="form-control" placeholder="Search" style="width:80%">
+                                        <button type="submit" class="btn btn-default"><i
+                                                class="glyphicon glyphicon-search"></i></button>
+                                    </div>
+                                    <p class="w3-large" style="margin-top:20px"><b>Filter by:</b></p>
+                                    <hr>
+                                    <p>Status at FONIS</p>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="radio" name="status" id="active"
+                                                   value="1">Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="radio" name="status" id="alumni"
+                                                   value="0">Alumni
+                                        </label>
+                                    </div>
+                                    <hr>
+                                    <p>Technology</p>
+                                    <div class="form-check">
+                                        {% for t in tech %}
+                                            <label class="form-check-inline label-padding">
+                                                <input class="form-check-input" type="checkbox" name="tech"
+                                                       value="{{ t.id }}">
+                                                {{ t.tech_name }}
+                                            </label>
+                                        {% endfor %}
+                                    </div>
+
+                                    <hr>
+                                    <p>Year of study</p>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="checkbox" name='year' value="1">
+                                            First year
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="checkbox" name='year' value="2">
+                                            Second year
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="checkbox" name='year' value="3">
+                                            Third year
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="checkbox" name='year' value="4">
+                                            Fourth year
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="checkbox" name='year' value="5">
+                                            Master
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <label class="form-check-label label-padding">
+                                            <input class="form-check-input" type="checkbox" name='year' value="0">
+                                            Graduated
+                                        </label>
+                                    </div>
+                                </form>
+                            </div>
+                            <hr>
+                            <br>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-twothird">
+
+                <div class="container" style="width:100%">
+                </div>
+
+                <!-- End Right Column -->
+            </div>
+
+            <!-- End Grid -->
+        </div>
+
+        <!-- End Page Container -->
+    </div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+body {
+    margin: 10px 10px 10px 10px;
+}
+
+.label-padding {
+    padding: 5px;
+}
+
+hr {
+    border: lightgrey;
+}

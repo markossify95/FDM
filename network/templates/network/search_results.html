@@ -1,0 +1,173 @@
+{% extends 'network/base.html' %}
+{% block title %}{{ request.user.username }} - Explore{% endblock %}
+{% block content %}
+    <body class="w3-light-grey">
+
+    <!-- Page Container -->
+    <div class="container">
+        <div class="w3-content w3-margin-top" style="max-width:1400px">
+
+            <!-- The Grid -->
+            <div class="w3-row-padding">
+
+                <!-- Left Column -->
+                <div class="w3-third" style="margin-bottom:30px">
+
+                    <div class="w3-white w3-text-grey w3-card-4">
+                        <div class="w3-display-container">
+                            <div class="w3-container" style="margin-top: 10px">
+                                <div id="pretraga">
+                                    <form class="navbar-form navbar-left" role="search" method="post"
+                                          style="width:100%; margin-top:30px">
+                                        {% csrf_token %}
+                                        <div class="form-group" style="width:100%">
+                                            <input type="text" class="form-control" placeholder="Search"
+                                                   style="width:80%">
+                                            <button type="submit" class="btn btn-default"><i
+                                                    class="glyphicon glyphicon-search"></i></button>
+                                        </div>
+                                        <p class="w3-large" style="margin-top:20px"><b>Filter by:</b></p>
+                                        <hr>
+                                        <p>Status at FONIS</p>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="radio" name="status" id="active"
+                                                       value="1">Active
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="radio" name="status" id="alumni"
+                                                       value="0">Alumni
+                                            </label>
+                                        </div>
+                                        <hr>
+                                        <p>Technology</p>
+                                        <div class="form-check">
+                                            {% for t in tech %}
+                                                <label class="form-check-inline label-padding">
+                                                    <input class="form-check-input" type="checkbox" name="tech"
+                                                           value="{{ t.id }}">
+                                                    {{ t.tech_name }}
+                                                </label>
+                                            {% endfor %}
+                                        </div>
+
+                                        <hr>
+                                        <p>Year of study</p>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="checkbox" name='year' value="1">
+                                                First year
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="checkbox" name='year' value="2">
+                                                Second year
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="checkbox" name='year' value="3">
+                                                Third year
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="checkbox" name='year' value="4">
+                                                Fourth year
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="checkbox" name='year' value="5">
+                                                Master
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label label-padding">
+                                                <input class="form-check-input" type="checkbox" name='year' value="0">
+                                                Graduated
+                                            </label>
+                                        </div>
+                                    </form>
+                                </div>
+                                <hr>
+
+
+                                <br>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+
+                    <!-- End Left Column -->
+                </div>
+
+                <!-- Right Column -->
+                <div class="w3-twothird">
+
+                    <div class="container" style="width:100%">
+
+                        <div id="search-results" style="margin-top:45px">
+                            <h2 class="w3-text-grey w3-padding-16"><i
+                                    class="glyphicon glyphicon-search  w3-text-teal"></i> Search results</h2>
+                            <hr>
+                            {% for u in users %}
+                                <a href="#">
+                                    <div class="single-search-result">
+                                        <div class="row" style="margin-left:10px">
+                                            <div class="col-md-3">
+                                                <div class="w3-display-container .img-responsive">
+                                                    <img class="img-circle"
+                                                         src="{{ u.userprofile.pic_url }}"
+                                                         style="width:90%" alt="Avatar">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <div class="w3-container">
+                                                    <h5 class="w3-opacity" id="user-name">
+                                                        <b><i>{{ u.first_name }} </i></b>
+                                                        <b><i>{{ u.last_name }}</i></b>
+                                                    </h5>
+                                                    {#                                                    {% for t in tech_list %}#}
+                                                    {#                                                        {% if t in u.user.usertech_set %}#}
+                                                    {#                                                            <span class="w3-tag w3-teal w3-round">Python</span>#}
+                                                    {#                                                        {% endif %}#}
+                                                    {#                                                    {% endfor %}#}
+                                                    {#                                                    <span#}
+                                                    {#                                                            class="w3-tag w3-teal w3-round">Django</span> <span#}
+                                                    {#                                                        class="w3-tag w3-teal w3-round">C</span>#}
+                                                    <h6 class="w3-opacity" id="project-name"><i
+                                                            class="glyphicon glyphicon-calendar w3-margin-right  w3-text-teal"></i><b>Member
+                                                        since {{ u.userprofile.birthday }}</b></h6>
+                                                    <h6 class="w3-opacity" id="project-name"><i
+                                                            class="glyphicon glyphicon glyphicon-star w3-margin-right w3-large w3-text-teal"></i><b>{{ u.userprofile.xp }}
+                                                        XP</b></h6>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                                <hr>
+                            {% endfor %}
+
+                        </div>
+                    </div>
+
+                    <!-- End Right Column -->
+                </div>
+
+                <!-- End Grid -->
+            </div>
+
+            <!-- End Page Container -->
+        </div>
+    </div>
+
+
+    </body>
+    </html>
+{% endblock %}

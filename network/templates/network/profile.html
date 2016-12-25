@@ -1,16 +1,216 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>FDN - {{ user.username }}</title>
-</head>
-<body>
-{% for obj in user_projects %}
-    <div>
-        <h3>{{ obj.position }}</h3>
-        <h3>{{ obj.project.project_name }}</h3>
-    </div>
-{% endfor %}
+{% extends 'network/base.html' %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block scripts %}
+    <script>
 
-</body>
-</html>
+        function is_active(active) {
+            if (active === "False") {
+                document.getElementById("user-active").innerHTML += "Alumni član";
+            } else {
+                document.getElementById("user-active").innerHTML += "Aktivan član";
+            }
+        }
+        ;
+    </script>
+{% endblock %}
+{% block content %}
+    <!-- Page Container -->
+    <div class="w3-content w3-margin-top" style="max-width:1400px; margin-left:50px; margin-right:50px">
+        <div id="meni" style="height:100px;">
+            <div class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#" class="navbar-brand"><img class="logo" src=""/></a>
+                        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div class="navbar-collapse collapse" id="navbar-main">
+                        <ul class="nav navbar-nav" style="padding:1.5% 2% 0 0;">
+                            <li>
+                                <a href="" id="home">Home</a>
+                            </li>
+                            <li>
+                                <a href="" id="user-profile">Profile</a>
+                            </li>
+                            <li>
+                                <a href="explore">Explore</a>
+                            </li>
+
+                        </ul>
+
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="">
+                                <img src=""/>
+                            </a></li>
+                            <style type="text/css">
+                                div.image {
+                                    max-width: 24px;
+                                    max-height: 24px;
+                                }
+                            </style>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Grid -->
+        <div class="w3-row-padding">
+
+            <!-- Left Column -->
+            <div class="w3-third">
+
+                <div class="w3-white w3-text-grey w3-card-4">
+                    <div class="w3-display-container">
+                        <img src=" {{ user.userprofile.pic_url }}"
+                             style="width:100%" alt="Avatar">
+                    </div>
+                    <div class="w3-container" style="margin-top: 30px">
+                        <div id="bio">
+                            <p class="w3-large" id="user-name-surname"><b><i
+                                    class="glyphicon glyphicon-user w3-margin-right w3-large w3-text-teal"></i>{{ user.first_name }}
+                                {{ user.last_name }}</b></p>
+                            <p>
+                                <i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ work_history.last.position }}
+                            </p>
+                            <p class="w3-large" id="user-bday"><i
+                                    class="glyphicon glyphicon-calendar w3-margin-right w3-large w3-text-teal"></i>{{ user.userprofile.birthday }}
+                            </p>
+                            <p id="user-maail"><i
+                                    class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ user.email }}
+                            </p>
+                            <p id="user-phone"><i
+                                    class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ user.userprofile.phone }}
+                            </p>
+                            <p id="user-active"><i
+                                    class="glyphicon glyphicon-ok w3-margin-right w3-large w3-text-teal"></i>
+                                <script type="text/javascript">
+                                    is_active("{{ user.userprofile.active }}");
+                                </script>
+                            </p>
+                            <p id="user-year"><i
+                                    class="glyphicon glyphicon-calendar w3-margin-right w3-large w3-text-teal"></i>Godina
+                                studija: {{ study_year }}.
+                            </p>
+                            <p class="w3-large" id="user-xp"><i
+                                    class="glyphicon glyphicon glyphicon-star w3-margin-right w3-large w3-text-teal"></i>{{ user.userprofile.xp }}
+                            </p>
+
+                        </div>
+                        <hr>
+
+                        <p class="w3-large"><b><i
+                                class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Skills</b>
+                        </p>
+                        {% for t in learned %}
+                            <div class="single-techa">
+                                <p>{{ t.tech.tech_name }}</p>
+                                <div class="w3-progress-container w3-round-xlarge ">
+                                    <div class="w3-progressbar w3-round-xlarge w3-teal" style="width:80%">
+                                        <div class="w3-center w3-text-white">Advanced</div>
+                                    </div>
+                                </div>
+                                <p>{{ t.description }}</p>
+                            </div>
+                        {% endfor %}
+
+                        <p class="w3-large w3-text-theme"><b><i
+                                class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Zelim
+                            da naucim</b></p>
+                        {% for t in to_learn %}
+                            <p>{{ t.tech.tech_name }}</p>
+                            <div class="w3-progress-container w3-round-xlarge">
+                                <div class="w3-progressbar w3-round-xlarge w3-teal" style="width:100%"></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+
+                <!-- End Left Column -->
+            </div>
+
+            <!-- Right Column -->
+            <div class="w3-twothird">
+
+                <div class="container" style="width:100%">
+                    <div id="tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#projects" aria-controls="projects"
+                                                                      role="tab"
+                                                                      data-toggle="tab">FONIS Projects</a></li>
+                            <li role="presentation"><a href="#work-history" role="tab" aria-controls="work-history"
+                                                       data-toggle="tab">Work History</a></li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="projects" style="margin-top:20px;">
+                                {% for p in user_projects %}
+                                    {% if not p.project.end_date %}
+                                        <div class="single-project">
+                                            <div class="w3-container">
+                                                <h5 class="w3-opacity" id="pozicija-name"><b><i>{{ p.position }}</i></b>
+                                                </h5>
+                                                <h6 class="w3-opacity" id="project-name">
+                                                    <b>{{ p.project.project_name }}</b>
+                                                </h6>
+                                                <h6 class="w3-text-teal"><i
+                                                        class="fa fa-calendar fa-fw w3-margin-right"></i>{{ p.project.start_date }}
+                                                    - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="single-project">
+                                            <div class="w3-container">
+                                                <h5 class="w3-opacity" id="pozicija-name"><b><i>{{ p.position }}</i></b>
+                                                </h5>
+                                                <h6 class="w3-opacity" id="project-name">
+                                                    <b>{{ p.project.project_name }}</b></h6>
+                                                <h6 class="w3-text-teal"><i
+                                                        class="fa fa-calendar fa-fw w3-margin-right"></i>{{ p.project.start_date }}
+                                                    - {{ p.project.end_date }}</h6>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="work-history" style="margin-top:20px;">
+                                {% for w in work_history %}
+                                    <div class="single-work">
+                                        <div class="w3-container">
+                                            <h5 class="w3-opacity" id="work-position"><b><i>{{ w.position }}</i></b>
+                                            </h5>
+                                            <h6 class="w3-opacity" id="work-firm-name"><b>{{ w.company_name }}</b></h6>
+                                            <p>{{ w.description }}</p>
+                                            {% if not w.end_date %}
+                                                <h6 class="w3-text-teal"><i
+                                                        class="fa fa-calendar fa-fw w3-margin-right"></i>{{ w.start_date }}
+                                                    - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+                                            {% else %}
+                                                <h6 class="w3-text-teal"><i
+                                                        class="fa fa-calendar fa-fw w3-margin-right"></i>{{ w.start_date }}- {{ w.end_date }}
+                                                </h6>
+                                            {% endif %}
+                                            <hr>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Right Column -->
+            </div>
+            <!-- End Grid -->
+        </div>
+        <!-- End Page Container -->
+    </div>
+
+{% endblock %}
