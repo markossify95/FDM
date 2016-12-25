@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FDN - {{ user.username }}</title>
+</head>
+<body>
+{% for obj in user_projects %}
+    <div>
+        <h3>{{ obj.position }}</h3>
+        <h3>{{ obj.project.project_name }}</h3>
+    </div>
+{% endfor %}
+
+</body>
+</html>
