@@ -120,16 +120,19 @@
                                         <div class="row" style="margin-left:10px">
                                             <div class="col-md-3">
                                                 <div class="w3-display-container .img-responsive">
-                                                    <img class="img-circle"
-                                                         src="{{ u.userprofile.pic_url }}"
-                                                         style="width:90%" alt="Avatar">
+                                                    <a href="{% url 'network.views.profile_view' u.id %}">
+                                                        <img class="img-circle"
+                                                             src="{{ u.userprofile.pic_url }}"
+                                                             style="width:90%" alt="Avatar">
+                                                    </a>
                                                 </div>
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="w3-container">
                                                     <h5 class="w3-opacity" id="user-name">
-                                                        <b><i>{{ u.first_name }} </i></b>
-                                                        <b><i>{{ u.last_name }}</i></b>
+                                                        <a href="{% url 'network.views.profile_view' u.id %}">
+                                                            <b><i>{{ u.first_name }} </i></b>
+                                                            <b><i>{{ u.last_name }}</i></b></a>
                                                     </h5>
                                                     {#                                                    {% for t in tech_list %}#}
                                                     {#                                                        {% if t in u.user.usertech_set %}#}
@@ -145,6 +148,12 @@
                                                     <h6 class="w3-opacity" id="project-name"><i
                                                             class="glyphicon glyphicon glyphicon-star w3-margin-right w3-large w3-text-teal"></i><b>{{ u.userprofile.xp }}
                                                         XP</b></h6>
+                                                    <h6 class="w3-opacity" id="project-name"><i
+                                                            class="glyphicon glyphicon glyphicon-floppy-disk w3-margin-right w3-large w3-text-teal"></i><b>
+                                                        {% for obj in u.usertech_set.get_queryset %}
+                                                            {{ obj.tech }};
+                                                        {% endfor %}
+                                                    </b></h6>
 
                                                 </div>
                                             </div>

@@ -97,9 +97,6 @@ def filter_view(request):
         return render(request, 'network/search.html', context)
 
     if request.method == "POST":
-        if request.user.userprofile is None:
-            print("JEBI!")
-
         data = request.body.decode('utf-8')
         data = data.split('&')
         tech_list = []
@@ -107,11 +104,11 @@ def filter_view(request):
         status = -1
         for obj in data:
             if "status=" in obj:
-                status = obj[-1:]
+                status = int(obj[-1:])
             elif "tech=" in obj:
-                tech_list.append(obj[-1:])
+                tech_list.append(int(obj[-1:]))
             elif "year=" in obj:
-                years.append(obj[-1:])
+                years.append(int(obj[-1:]))
             else:
                 continue
         print(status)
@@ -122,22 +119,26 @@ def filter_view(request):
             users = models.User.objects.filter(userprofile__active__exact=status)
         else:
             users = models.User.objects.all()
-        # final = []
-        # for u in users:
-        #     test = u.user.usertech_set.get_queryset()
-        #     test = [t.id for t in test]
-        #     print(u.user.username + 'zna: ' + str(test))
-        #     if tech_list:
-        #         for obj in tech_list:
-        #             print(obj)
-        #             if obj in test:
-        #                 final.append(u)
-        #                 break
-        #     else:
-        #         final = users
-        # print(final)
-        tech = models.Tech.objects.all()
+        if years:
+            opp_yrs = get_other_years(years)
+            users = users.exclude(userprofile__year_of_study__in=opp_yrs)
+
+        if tech_list:
+            for u in users:
+                user_techs = u.usertech_set.get_queryset()
+                ajdis = [a.tech_id for a in user_techs]
+                print('id-evi tehnologija koje ovaj zna: ' + str(ajdis))
+                counter = 0
+                for a in ajdis:
+                    if a in tech_list:
+                        counter += 1
+
+                print(str(counter) + ': ' + u.username)
+                if counter == 0:
+                    print(u.username + 'ISPADA!!!')
+                    users = users.exclude(id=u.id)
         print(users)
+        tech = models.Tech.objects.all()
         context = {'users': users, 'tech': tech, 'status': status, 'years': years}
         return render(request, 'network/search_results.html', context)
 
@@ -145,3 +146,12 @@ def filter_view(request):
 def logout_view(request):
     logout(request)
     return redirect('/network/login')
+
+
+def get_other_years(years):
+    yrs = []
+    for x in range(0, 6):
+        if x not in years:
+            yrs.append(x)
+
+    return yrs
